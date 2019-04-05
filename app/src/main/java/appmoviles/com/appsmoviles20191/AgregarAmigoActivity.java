@@ -85,8 +85,8 @@ public class AgregarAmigoActivity extends AppCompatActivity {
                     Log.e(">>>",lista.get(i).getNombre());
                 }
 
-                rtdb.getReference().child("friend").child(auth.getUid()).push().setValue(amigo);
-
+                rtdb.getReference().child("friend").child(auth.getCurrentUser().getUid()).push().setValue(amigo);
+                finish();
             }
         });
 
