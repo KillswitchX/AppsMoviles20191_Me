@@ -19,6 +19,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.UUID;
@@ -40,6 +43,9 @@ public class AgregarAmigoActivity extends AppCompatActivity {
     private Button btn_take_pic;
     private File photoFile;
 
+    FirebaseDatabase rtdb;
+    FirebaseAuth auth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +58,8 @@ public class AgregarAmigoActivity extends AppCompatActivity {
 
 
         db = DBHandler.getInstance(this);
-
+        rtdb = FirebaseDatabase.getInstance();
+        auth = FirebaseAuth.getInstance();
         et_nombre = findViewById(R.id.et_nombre);
         et_edad = findViewById(R.id.et_edad);
         et_correo = findViewById(R.id.et_correo);
@@ -77,6 +84,8 @@ public class AgregarAmigoActivity extends AppCompatActivity {
                 for(int i=0 ; i<lista.size() ; i++){
                     Log.e(">>>",lista.get(i).getNombre());
                 }
+
+                rtdb.getReference().child("friend").child(auth.getUid()).setValue(amigo);
 
             }
         });
