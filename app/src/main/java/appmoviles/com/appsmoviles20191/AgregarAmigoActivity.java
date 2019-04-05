@@ -10,6 +10,7 @@ import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -85,7 +86,7 @@ public class AgregarAmigoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 photoFile = new File(Environment.getExternalStorageDirectory() + "/"+UUID.randomUUID().toString()+".png");
-                Uri uri = Uri.fromFile(photoFile);
+                Uri uri = FileProvider.getUriForFile(AgregarAmigoActivity.this, getPackageName(), photoFile);
                 i.putExtra(MediaStore.EXTRA_OUTPUT, uri);
                 startActivityForResult(i, CAMERA_CALLBACK_ID);
             }

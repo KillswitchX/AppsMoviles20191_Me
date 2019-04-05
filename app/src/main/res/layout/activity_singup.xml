@@ -6,6 +6,19 @@
     android:padding="20dp"
     xmlns:android="http://schemas.android.com/apk/res/android" >
 
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/et_signup_nombre"
+        android:hint="Nombre"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/et_signup_telefono"
+        android:hint="Telefono"/>
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
