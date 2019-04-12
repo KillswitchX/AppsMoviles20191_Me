@@ -42,6 +42,7 @@ public class AgregarAmigoActivity extends AppCompatActivity {
     private Button btn_agregar_amigo;
     DBHandler db;
 
+    //
     private ImageView img_amigo;
     private Button btn_take_pic;
     private File photoFile;
