@@ -22,7 +22,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AgregarAmigoActivity" />
+        <activity android:name=".AgregarAmigoActivity" android:screenOrientation="portrait"/>
         <activity android:name=".LoginActivity" />
         <activity android:name=".SingupActivity"></activity>
 

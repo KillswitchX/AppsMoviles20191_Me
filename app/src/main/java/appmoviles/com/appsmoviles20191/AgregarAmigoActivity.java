@@ -23,15 +23,18 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.File;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.UUID;
 
 import appmoviles.com.appsmoviles20191.db.DBHandler;
 import appmoviles.com.appsmoviles20191.model.Amigo;
+import appmoviles.com.appsmoviles20191.util.UtilDomi;
 
 public class AgregarAmigoActivity extends AppCompatActivity {
 
     private static final int CAMERA_CALLBACK_ID = 100;
+    private static final int GALLERY_CALLBACK_ID = 101;
     private EditText et_nombre;
     private EditText et_edad;
     private EditText et_correo;
@@ -45,6 +48,8 @@ public class AgregarAmigoActivity extends AppCompatActivity {
 
     FirebaseDatabase rtdb;
     FirebaseAuth auth;
+
+    private Button btn_open_gal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +72,7 @@ public class AgregarAmigoActivity extends AppCompatActivity {
         btn_agregar_amigo = findViewById(R.id.btn_agregar_amigo);
         img_amigo = findViewById(R.id.image_amigo);
         btn_take_pic = findViewById(R.id.btn_take_pic);
-
+        btn_open_gal= findViewById(R.id.btn_open_gal);
 
         btn_agregar_amigo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,7 +106,15 @@ public class AgregarAmigoActivity extends AppCompatActivity {
             }
         });
 
-
+        btn_open_gal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent();
+                i.setAction(Intent.ACTION_GET_CONTENT);
+                i.setType("image/*");
+                startActivityForResult(i,GALLERY_CALLBACK_ID);
+            }
+        });
     }
 
 
@@ -112,6 +125,13 @@ public class AgregarAmigoActivity extends AppCompatActivity {
             Bitmap imagen = BitmapFactory.decodeFile(photoFile.toString());
             img_amigo.setImageBitmap(imagen);
         }
+        if(requestCode == GALLERY_CALLBACK_ID  && resultCode == RESULT_OK){
+            Uri uri = data.getData();
+            photoFile = new File(UtilDomi.getPath(this, uri));
+            Bitmap m = BitmapFactory.decodeFile(photoFile.toString());
+            img_amigo.setImageBitmap(m);
+        }
+
     }
 
     //Cargamos
