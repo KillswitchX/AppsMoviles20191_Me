@@ -50,6 +50,21 @@ public class AgregarAmigoActivity extends AppCompatActivity {
     FirebaseAuth auth;
 
     private Button btn_open_gal;
+    private  boolean agregar_datos = false;
+
+    @Override
+    protected void onDestroy() {
+        if(agregar_datos) {
+            PreferenceManager.getDefaultSharedPreferences(this).edit()
+                    .remove("nombre")
+                    .remove("edad")
+                    .remove("edad")
+                    .remove("telefono")
+                    .apply();
+        }
+        super.onDestroy();
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +106,8 @@ public class AgregarAmigoActivity extends AppCompatActivity {
                 }
 
                 rtdb.getReference().child("friend").child(auth.getCurrentUser().getUid()).push().setValue(amigo);
+
+                agregar_datos=true;
                 finish();
             }
         });
