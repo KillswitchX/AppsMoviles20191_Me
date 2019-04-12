@@ -55,6 +55,7 @@ public class AgregarAmigoActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         if(agregar_datos) {
+            //
             PreferenceManager.getDefaultSharedPreferences(this).edit()
                     .remove("nombre")
                     .remove("edad")
