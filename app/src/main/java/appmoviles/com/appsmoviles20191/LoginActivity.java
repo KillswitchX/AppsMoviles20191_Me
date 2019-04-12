@@ -20,6 +20,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import appmoviles.com.appsmoviles20191.db.DBHandler;
+import appmoviles.com.appsmoviles20191.model.Amigo;
+
 public class LoginActivity extends AppCompatActivity {
 
     private EditText et_login_correo;
@@ -28,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextView txt_singup;
     FirebaseAuth auth;
     FirebaseDatabase rtdb;
+    DBHandler localdb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         auth = FirebaseAuth.getInstance();
         rtdb = FirebaseDatabase.getInstance();
+        localdb = DBHandler.getInstance(this);
 
         et_login_correo = findViewById(R.id.et_login_correo);
         et_login_pass = findViewById(R.id.et_login_pass);
@@ -51,13 +56,15 @@ public class LoginActivity extends AppCompatActivity {
                     public void onSuccess(AuthResult authResult) {
 
                         //Estamos logueados
+                        localdb.deleteAmigosOfUser(auth.getCurrentUser().getUid());
                         rtdb.getReference().child("friend").child(auth.getCurrentUser().getUid())
                         .addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 //OnRequest -> Respuesta de Firebase
                                 for(DataSnapshot hijo : dataSnapshot.getChildren()){
-                                    Log.e(">>>>>", ""+hijo.getValue());
+                                    Amigo a = hijo.getValue(Amigo.class);
+                                    localdb.createAmigo(a);
                                 }
                             }
 
@@ -68,8 +75,8 @@ public class LoginActivity extends AppCompatActivity {
                         });
 
                         Intent i = new Intent(LoginActivity.this, MainActivity.class);
-                        //startActivity(i);
-                        //finish();
+                        startActivity(i);
+                        finish();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
