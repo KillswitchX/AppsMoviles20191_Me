@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements AdapterAmigos.OnI
     @Override
     protected void onResume() {
         super.onResume();
-        adapterAmigos.showAllAmigos(localdb.getAllAmigos());
+        adapterAmigos.showAllAmigos(localdb.getAllAmigosOfUser(auth.getCurrentUser().getUid()));
     }
 
 

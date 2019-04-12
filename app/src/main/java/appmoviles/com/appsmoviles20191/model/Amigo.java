@@ -8,16 +8,20 @@ public class Amigo {
     private String telefono;
     private String email;
 
+
+
+    private String userID;
     //Serializar
     public Amigo() {
     }
 
-    public Amigo(String id, String nombre, String edad, String telefono, String email) {
+    public Amigo(String id, String nombre, String edad, String telefono, String email, String userID) {
         this.id = id;
         this.nombre = nombre;
         this.edad = edad;
         this.telefono = telefono;
         this.email = email;
+        this.userID = userID;
     }
 
     public String getId() {
@@ -58,6 +62,14 @@ public class Amigo {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
 
     @Override
