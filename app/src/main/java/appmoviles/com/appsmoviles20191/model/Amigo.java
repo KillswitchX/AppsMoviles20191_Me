@@ -7,6 +7,7 @@ public class Amigo {
     private String edad;
     private String telefono;
     private String email;
+    
 
 
 
